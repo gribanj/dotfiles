@@ -1,3 +1,24 @@
+# config.nu
+#
+# Installed by:
+# version = "0.102.0"
+#
+# This file is used to override default Nushell settings, define
+# (or import) custom commands, or run any other startup tasks.
+# See https://www.nushell.sh/book/configuration.html
+#
+# This file is loaded after env.nu and before login.nu
+#
+# You can open this file in your default editor using:
+# config nu
+#
+# See `help config nu` for more options
+#
+# You can remove these comments if you want or leave
+# them for future reference.
+# source "$HOME/.cargo/env.nu"
+
+
 # Nushell Config File
 #
 # version = "0.95.0"
@@ -207,10 +228,12 @@ $env.config = {
         use_ls_colors: true # set this to true to enable file/path/directory completions using LS_COLORS
     }
 
+
+
     filesize: {
-        metric: false # true => KB, MB, GB (ISO standard), false => KiB, MiB, GiB (Windows standard)
-        format: "auto" # b, kb, kib, mb, mib, gb, gib, tb, tib, pb, pib, eb, eib, auto
-    }
+        unit: "binary"
+        }
+
 
     cursor_shape: {
         emacs: block # block, underscore, line, blink_block, blink_underscore, blink_line, inherit to skip setting cursor shape (line is the default)
@@ -218,9 +241,9 @@ $env.config = {
         vi_normal: underscore # block, underscore, line, blink_block, blink_underscore, blink_line, inherit to skip setting cursor shape (underscore is the default)
     }
 
-    color_config: $dark_theme # if you want a more interesting theme, you can replace the empty record with `$dark_theme`, `$light_theme` or another custom record
-    use_grid_icons: true
-    footer_mode: "25" # always, never, number_of_rows, auto
+    color_config: $light_theme # if you want a more interesting theme, you can replace the empty record with `$dark_theme`, `$light_theme` or another custom record
+    # use_grid_icons: true
+    footer_mode: "auto" # always, never, number_of_rows, auto
     float_precision: 2 # the precision for displaying floats in tables
     buffer_editor: "" # command that will be used to edit the current line buffer with ctrl+o, if unset fallback to $env.EDITOR and $env.VISUAL
     use_ansi_coloring: true
@@ -891,6 +914,11 @@ $env.config = {
     ]
 }
 
+
+# A function cx that changes the current directory to the specified path 
+# and then lists its contents in detailed format.
+# e.g. cx ~/Documents
+
 def --env cx [arg] {
     cd $arg
     ls -l
@@ -939,9 +967,27 @@ alias kc = kubectx
 alias kns = kubens
 alias kl = kubectl logs -f
 alias ke = kubectl exec -it
+alias h = http get 
 
-source ~/.config/nushell/env.nu
+# Terraform
+
+alias t = terraform
+
+alias lzd = lazydocker
+
+# Source
+
+source ~/.config/nushell/env.nu 
 source ~/.zoxide.nu
 source ~/.cache/carapace/init.nu
 source ~/.local/share/atuin/init.nu
 use ~/.cache/starship/init.nu
+use "~/nu_scripts/modules/prompt/oh-my.nu" git_prompt
+
+
+# source ~/.config/fzf/compeletion.nu 
+
+
+$env.PROMPT_COMMAND = { (git_prompt).left_prompt }
+$env.PROMPT_COMMAND_RIGHT = { (git_prompt).right_prompt }
+$env.PROMPT_INDICATOR = " "

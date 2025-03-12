@@ -1,9 +1,30 @@
+# env.nu
+#
+# Installed by:
+# version = "0.102.0"
+#
+# Previously, environment variables were typically configured in `env.nu`.
+# In general, most configuration can and should be performed in `config.nu`
+# or one of the autoload directories.
+#
+# This file is generated for backwards compatibility for now.
+# It is loaded before config.nu and login.nu
+#
+# See https://www.nushell.sh/book/configuration.html
+#
+# Also see `help config env` for more options.
+#
+# You can remove these comments if you want or leave
+# them for future reference.
+# source "$HOME/.cargo/env.nu"
+
+
 # Nushell Environment Config File
 #
-# version = "0.95.0"
+# version = "0.102.0"
 
 def create_left_prompt [] {
-    let dir = match (do --ignore-shell-errors { $env.PWD | path relative-to $nu.home-path }) {
+    let dir = match (do --ignore-errors { $env.PWD | path relative-to $nu.home-path }) {
         null => $env.PWD
         '' => '~'
         $relative_pwd => ([~ $relative_pwd] | path join)
@@ -33,6 +54,7 @@ def create_right_prompt [] {
 
     ([$last_exit_code, (char space), $time_segment] | str join)
 }
+
 
 # Use nushell functions to define your right and left prompt
 $env.PROMPT_COMMAND = {|| create_left_prompt }
@@ -98,7 +120,7 @@ use std "path add"
 # $env.PATH = ($env.PATH | uniq)
 path add /opt/homebrew/bin
 path add /run/current-system/sw/bin
-path add /Users/omerxx/.local/bin
+path add /Users/yuriyg/.local/bin
 
 # To load from a custom file you can use:
 # source ($nu.default-config-dir | path join 'custom.nu')
@@ -107,9 +129,8 @@ mkdir ~/.cache/starship
 starship init nu | save -f ~/.cache/starship/init.nu
 zoxide init nushell | save -f ~/.zoxide.nu
 
-$env.STARSHIP_CONFIG = /Users/omerxx/.config/starship/starship.toml
-$env.NIX_CONF_DIR = /Users/omerxx/.config/nix
+$env.STARSHIP_CONFIG = "~/.config/starship/starship.toml"
+$env.NIX_CONF_DIR = "/home/yuriyg/.config/nix/nix.conf"
 $env.CARAPACE_BRIDGES = 'zsh,fish,bash,inshellisense' # optional
 mkdir ~/.cache/carapace
 carapace _carapace nushell | save --force ~/.cache/carapace/init.nu
-
