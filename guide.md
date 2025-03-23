@@ -1,14 +1,17 @@
+sudo apt-get install libssl-dev pkg-config -y
 sudo apt-get update -y
 sudo apt-get install cmake -y
 sudo apt-get install fzf -y
 sudo apt-get install stow -y
+curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh -s -- -y
 cargo install eza
+git clone git@github.com:nushell/nu_scripts.git
 
 brew install jesseduffield/lazydocker/lazydocker
 brew install eza
 
 cargo install zoxide
-zoxide init nu > ~/.zoxide.nu
+zoxide init nu | save ~/.zoxide.nu
 
 in nushell run:
 cargo install atuin
