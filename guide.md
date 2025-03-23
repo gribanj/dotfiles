@@ -38,3 +38,10 @@ in nushell run:
 sudo apt-get install fzf -y
 mkdir ~/.config/fzf
 fzf init nu | save ~/.config/fzf/init.nu
+
+in nushell run:
+cargo install nu_plugin_query
+plugin add ~/.cargo/bin/nu_plugin_query
+
+cargo install aichat
+https://github.com/sigoden/aichat?tab=readme-ov-file

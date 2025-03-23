@@ -975,6 +975,10 @@ alias t = terraform
 
 alias lzd = lazydocker
 
+alias a = aichat
+
+# alias sshg =  eval "$(ssh-agent -s)";ssh-add ~/.ssh/github
+
 # Source
 
 source ~/.config/nushell/env.nu 
