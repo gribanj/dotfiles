@@ -62,6 +62,10 @@ alias vault='docker run --rm -it -v $PWD:/vault -w /vault hashicorp/docker-vault
 
 alias v='docker run --rm -it -v $PWD:/vault -w /vault vault:latest'
 
+alias dive="docker run -it --rm -v /var/run/docker.sock:/var/run/docker.sock wagoodman/dive"
+# e.g. dive <your-image-tag>
+
+
 eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv)"
 
 

@@ -88,10 +88,19 @@ mv ~/.config/nushell/plugin.msgpackz ~/.config/nushell/plugin.msgpackz.bak
 mv ~/.bash_aliases ~/.bash_aliases.backup
 
 mv ~/.bashrc ~/.bashrc.backup
+
+touch  ~/.bashrc; touch  ~/.bash_aliases
+
+stow -t ~ bash
+
+<!-- stow -t ~ bash_aliases -->
+
 ( to test )
 
 ls -l ~/.bashrc
 ls -l ~/.bash_aliases
+
+
 
 ###########################
 
