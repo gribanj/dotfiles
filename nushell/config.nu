@@ -975,14 +975,11 @@ alias t = terraform
 
 alias lzd = lazydocker
 
-<<<<<<< Updated upstream
 alias a = aichat
 
 # alias sshg =  eval "$(ssh-agent -s)";ssh-add ~/.ssh/github
-=======
-alias m = make
 
->>>>>>> Stashed changes
+alias m = make
 
 # Source
 
