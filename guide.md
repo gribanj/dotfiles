@@ -85,11 +85,15 @@ mv ~/.config/nushell/config.nu ~/.config/nushell/config.nu.bak
 mv ~/.config/nushell/env.nu ~/.config/nushell/env.nu.bak
 mv ~/.config/nushell/plugin.msgpackz ~/.config/nushell/plugin.msgpackz.bak
 
+cd ~/dotfiles/
+
 mv ~/.bash_aliases ~/.bash_aliases.backup
 
 mv ~/.bashrc ~/.bashrc.backup
 
-touch  ~/.bashrc; touch  ~/.bash_aliases
+<!-- touch ~/.bashrc; touch ~/.bash_aliases -->
+
+rm ~/.bashrc; rm ~/.bash_aliases
 
 stow -t ~ bash
 
@@ -99,8 +103,6 @@ stow -t ~ bash
 
 ls -l ~/.bashrc
 ls -l ~/.bash_aliases
-
-
 
 ###########################
 
