@@ -386,11 +386,11 @@ def git_left_prompt [gs os] {
 
   # assemble all segments for final prompt printing
   [
-    $os_segment
-    $path_segment
+    #$os_segment
+    #$path_segment
     (
       if ($git_right == false) {
-        $git_segment
+        #$git_segment
       }
     )
     $indicator_segment
@@ -408,14 +408,35 @@ def git_right_prompt [gs os] {
 
   let branch_name = (get_branch_name $gs)
   let repo_status = (get_repo_status $gs $os)
+  
   let R = (ansi reset)
-  let TIME_BG = "#D3D7CF"
-  let TERM_FG = "#0C0C0C"
-  let GIT_BG = "#C4A000"
-  let GIT_FG = "#000000"
-  let TERM_BG = "#0C0C0C"
-  let TERM_FG_DEFAULT = "\e[39m"
-  let TERM_BG_DEFAULT = "\e[49m"
+  let GIT_BG = "#0C0C0C"
+  let GIT_FG = "#FFFFFF"
+  let TERM_BG = "#D3D7CF"
+  
+  # Git symbols for the right prompt, using Nerd Fonts icons
+  let AHEAD_ICON = (char branch_ahead)  # "↑"
+  let BEHIND_ICON = (char branch_behind)  # "↓"
+  let INDEX_CHANGE_ICON = (char branch_identical)  # "♦"
+  let WT_CHANGE_ICON = (char hamburger)  # "≡"
+  let UNTRACKED_CHANGE_ICON = (char branch_untracked)  # "≢"
+  let NO_CHANGE_ICON = (char branch_identical)  # "≣"
+  let HAS_CHANGE_ICON = "*"  # "✱"
+  
+
+
+
+#   let R = (ansi reset)
+   let TIME_BG = "#D3D7CF"
+   let TERM_FG = "#0C0C0C"
+#   let GIT_BG = "#C4A000"
+#   let GIT_FG = "#000000"
+#   let TERM_BG = "#0C0C0C"
+ #  let TERM_FG_DEFAULT = "\e[39m"
+  # let TERM_BG_DEFAULT = "\e[49m"
+let TERM_FG_DEFAULT = ""  # Do not use default foreground color
+let TERM_BG_DEFAULT = ""  # Do not use default background color
+
 
   let datetime_segment = (
     [
@@ -444,27 +465,48 @@ def git_right_prompt [gs os] {
   let git_segment = (
     if ($branch_name != "") {
       [
-        (ansi { fg: $GIT_BG bg: $TERM_BG }) # color
-        (char -u e0b2) # 
-        (ansi { fg: $TERM_FG bg: $GIT_BG }) # color
-        (char space) # space
-        $repo_status # repo status
-        (ansi { fg: $TERM_FG bg: $GIT_BG }) # color
-        (char space)
-        (ansi { fg: "#4E9A06" bg: $GIT_BG }) # color
-        (char -u e0b2) # 
-        (ansi { fg: $TERM_BG bg: "#4E9A06" }) # color
-        (char space) # space
-        # (char -u f1d3)                       # 
-        # (char -u e0a0)                       # 
-        (char nf_git_branch) # 
-        (char space) # space
-        $branch_name # main
-        (char space) # space
-        ($R) # reset color
+        (ansi { fg: $GIT_FG bg: $TERM_BG })  # Color setup
+        #(char -u e0b2)  # Separator symbol ()
+        (ansi { fg: $TERM_BG bg: $GIT_BG })  # Separator with color
+        (char space)  # Space
+        (char -u e0a0)  # Branch icon ()
+        (char space)  # Space
+        ($branch_name)  # Branch name (e.g., "main")
+        (char space)  # Space
+        $repo_status  # Git status (ahead/behind, untracked, etc.)
+        (ansi { fg: $TERM_BG bg: $GIT_BG })  # Reset color
+        #(char -u e0b2)  # Separator symbol ()
+        ($R)  # Reset ANSI
       ] | str join
     }
   )
+
+
+
+#  let git_segment = (
+#     if ($branch_name != "") {
+#       [
+#         (ansi { fg: $GIT_BG bg: $TERM_BG }) # color
+#         (char -u e0b2) # 
+#         (ansi { fg: $TERM_FG bg: $GIT_BG }) # color
+#         (char space) # space
+#         $repo_status # repo status
+#         (ansi { fg: $TERM_FG bg: $GIT_BG }) # color
+#         (char space)
+#         (ansi { fg: "#4E9A06" bg: $GIT_BG }) # color
+#         (char -u e0b2) # 
+#         (ansi { fg: $TERM_BG bg: "#4E9A06" }) # color
+#         (char space) # space
+#         # (char -u f1d3)                       # 
+#         # (char -u e0a0)                       # 
+#         (char nf_git_branch) # 
+#         (char space) # space
+#         $branch_name # main
+#         (char space) # space
+#         ($R) # reset color
+#       ] | str join
+#     }
+#   )
 
   let execution_time_segment = (
     [
@@ -505,12 +547,12 @@ def git_right_prompt [gs os] {
         $status_segment
       }
     )
-    $execution_time_segment
-    $time_segment
+    #$execution_time_segment
+    #$time_segment
   ] | str join
 
   # 3. git only - working
-  # $git_segment
+   $git_segment
 
   # 4. git + time -> need to fix the transition
   # [

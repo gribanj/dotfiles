@@ -990,7 +990,10 @@ source ~/.zoxide.nu
 source ~/.cache/carapace/init.nu
 source ~/.local/share/atuin/init.nu
 use ~/.cache/starship/init.nu
-use "~/nu_scripts/modules/prompt/oh-my.nu" git_prompt
+# use "~/nu_scripts/modules/prompt/oh-my.nu" git_prompt
+
+use "~/dotfiles/nushell/scripts/oh-my.nu" git_prompt
+
 $env.PROMPT_COMMAND = { (git_prompt).left_prompt }
 $env.PROMPT_COMMAND_RIGHT = { (git_prompt).right_prompt }
 $env.PROMPT_INDICATOR = " "
