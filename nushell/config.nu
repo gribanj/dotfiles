@@ -292,10 +292,10 @@ $env.config = {
         }
         plugins: {
             # alternate configuration for specific plugins, by name, for example:
-            #
-            # gstat: {
-            #     enabled: false
-            # }
+            
+             gstat: {
+                 enabled: false
+             }
         }
     }
 
@@ -929,6 +929,7 @@ alias c = clear
 alias ll = ls -l
 alias lt = eza --tree --level=2 --long --icons --git
 alias v = nvim
+
 alias hms = /nix/store/6kc5srg83nkyg21am089xx7pvq44kn2c-home-manager/bin/home-manager switch
 alias as = aerospace
 
@@ -953,6 +954,7 @@ alias ga = git add -p
 alias gcoall = git checkout -- .
 alias gr = git remote
 alias gre = git reset
+alias gl = git log --pretty=%h»¦«%aN»¦«%s»¦«%aD | lines | split column "»¦«" sha1 committer desc merged_at | first 10
 
 # K8s
 alias k = kubectl
@@ -989,11 +991,6 @@ source ~/.cache/carapace/init.nu
 source ~/.local/share/atuin/init.nu
 use ~/.cache/starship/init.nu
 use "~/nu_scripts/modules/prompt/oh-my.nu" git_prompt
-
-
-# source ~/.config/fzf/compeletion.nu 
-
-
 $env.PROMPT_COMMAND = { (git_prompt).left_prompt }
 $env.PROMPT_COMMAND_RIGHT = { (git_prompt).right_prompt }
 $env.PROMPT_INDICATOR = " "
