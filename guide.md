@@ -4,6 +4,7 @@ sudo apt-get install cmake -y
 sudo apt-get install fzf -y
 sudo apt-get install stow -y
 sudo apt install tmux -y
+sudo apt install acpi -y ( on laptops for battery)
 
 curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh -s -- -y
 
