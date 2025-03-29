@@ -924,6 +924,18 @@ def --env cx [arg] {
     ls -l
 }
 
+def timeit_with_output [closure] {
+  let start = (date now)
+  let output = (do $closure)
+  let end = (date now)
+  let time = ($end - $start)
+  {
+    output: $output
+    time: $time
+  }
+}
+
+
 alias l = ls --all
 alias c = clear
 alias ll = ls -l
@@ -997,3 +1009,9 @@ use "~/dotfiles/nushell/scripts/oh-my.nu" git_prompt
 $env.PROMPT_COMMAND = { (git_prompt).left_prompt }
 $env.PROMPT_COMMAND_RIGHT = { (git_prompt).right_prompt }
 $env.PROMPT_INDICATOR = " "
+
+$env.PROMPT_COMMAND = {
+  let current = ($env.PWD | path basename)
+  let parent  = ($env.PWD | path dirname | path basename)
+  "📁 " + $parent + "/" + $current + " "
+}
